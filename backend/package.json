@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "private": true,
     "description": "Backend for Love Notes App",
-    "main": "backupServer.js",
+    "main": "backupServerMongo.js",
     "dependencies": {
       "express": "^4.21.2",
       "mongoose": "^8.11.0",
@@ -11,7 +11,7 @@
       "dotenv": "^16.0.3"
     },
     "scripts": {
-      "start": "node backupServer.js"
+      "start": "node backupServerMongo.js"
     },
     "author": "Snehit Dua",
     "license": "ISC"
