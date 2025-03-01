@@ -1,46 +1,95 @@
 import React, { useState, useEffect } from "react";
 import "./LoveNotesApp.css";
 
-const BACKUP_SERVER_URL = "https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/love-notes-backend/love-notes-backend/v1.0/backup"; // Replace with Render URL
-const AUTH_HEADER = {
-  "accept": "*/*",
-  "Test-Key": "eyJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwiYWxnIjoiUlMyNTYifQ..." // Use your actual token here
-}
-
 export default function LoveNotesApp() {
   const [text, setText] = useState("");
+  // const [entries, setEntries] = useState(() => {
+  //   const savedData = localStorage.getItem("loveNotes");
+  //   return savedData ? JSON.parse(savedData) : [];
+  // });
+
+  // useEffect(() => {
+  //   localStorage.setItem("loveNotes", JSON.stringify(entries));
+  //   backupData(entries);
+  // }, [entries]);
+
   const [entries, setEntries] = useState([]);
+
+  // useEffect(() => {
+  //   fetch("http://192.168.1.5:5000/backup")
+  //     .then((res) => res.json())
+  //     .then((data) => setEntries(data.entries || []))
+  //     .catch((err) => console.error("Failed to load backup:", err));
+  // }, []);
 
   useEffect(() => {
     const fetchData = () => {
-      fetch(BACKUP_SERVER_URL, { headers: AUTH_HEADER })
+      fetch("http://192.168.1.5:5000/backup")
         .then((res) => res.json())
         .then((data) => setEntries(data.entries || []))
         .catch((err) => console.error("Failed to load backup:", err));
     };
-
+  
     fetchData(); // Load initially
+  
     const interval = setInterval(fetchData, 60000); // Refresh every 60 seconds
+  
     return () => clearInterval(interval); // Clean up
   }, []);
+
+  // const backupData = async (data) => {
+  //   try {
+  //     await fetch("http://192.168.1.5:5000/backup", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(data),
+  //     });
+  //   } catch (error) {
+  //     console.error("Backup failed:", error);
+  //   }
+  // };
+
+  // const handleSubmit = () => {
+  //   if (!text.trim()) return;
+  //   const timestamp = new Date().toLocaleString();
+  //   const newEntry = { text, timestamp };
+  //   setEntries((prevEntries) => {
+  //     const updatedEntries = [...prevEntries, newEntry];
+  //     localStorage.setItem("loveNotes", JSON.stringify(updatedEntries));
+  
+  //     // Send data to backup server
+  //     fetch("http://192.168.1.5:5000/backup", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ entry: { text: newEntry.text, timestamp: newEntry.timestamp } }),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => console.log("Backup Response:", data))
+  //       .catch((err) => console.error("Backup Error:", err));
+  
+  //     return updatedEntries;
+  //   });
+  //   setText("");
+  // };  
 
   const handleSubmit = () => {
     if (!text.trim()) return;
     const timestamp = new Date().toLocaleString();
     const newEntry = { text, timestamp };
-
+  
     setEntries((prevEntries) => [...prevEntries, newEntry]);
-
-    // Send only the new note to the backup server
-    fetch(BACKUP_SERVER_URL, {
+    localStorage.setItem("loveNotes", JSON.stringify([...entries, newEntry]));
+  
+    // Send only the new note, not all previous ones
+    fetch("http://192.168.1.5:5000/backup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newEntry),
+      body: JSON.stringify({ entry: newEntry }),
     })
       .then((res) => res.json())
       .then((data) => console.log("Backup Response:", data))
       .catch((err) => console.error("Backup Error:", err));
-
+  
     setText("");
   };
 
@@ -71,17 +120,17 @@ export default function LoveNotesApp() {
         placeholder="Write your feelings here..."
       />
       <button className="save-button" onClick={handleSubmit}>
-        Save Love Note
+        Guardar Love Note
       </button>
 
       <div className="journal">
         <h2>My Love Journal</h2>
-        <p>Total Notes: {getStats().totalEntries}</p>
-        <p>Last Note: {getStats().lastEntry}</p>
+        <p>Total de Notas: {getStats().totalEntries}</p>
+        <p>Última Nota: {getStats().lastEntry}</p>
       </div>
 
       <button className="send-button" onClick={emailLoveLetter}>
-        Send Love Letter 💌
+        Enviar Love Letter 💌
       </button>
     </div>
   );
