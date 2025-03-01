@@ -1,0 +1,133 @@
+body {
+  background: linear-gradient(to right, #ffdde1, #ee9ca7);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* margin: 2px; */
+}
+
+.container {
+  width: 90%;
+  max-width: 700px;
+  min-width: 350px;
+  padding: 30px;
+  background: #fff0f5;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: 0.3s ease;
+  /* margin-right: 95px; */
+}
+
+.container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  font-size: 2.2rem;
+  color: #d63384;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.textarea {
+  width: 95%;
+  height: 120px;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 2px solid #ff69b4;
+  outline: none;
+  resize: none;
+  transition: 0.3s;
+}
+
+.textarea:focus {
+  border-color: #d63384;
+  box-shadow: 0 0 8px rgba(255, 105, 180, 0.5);
+}
+
+.textarea::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+.save-button, .send-button {
+  margin-top: 15px;
+  background: linear-gradient(45deg, #ff1493, #ff69b4);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(255, 20, 147, 0.2);
+}
+
+.save-button:hover, .send-button:hover {
+  background: linear-gradient(45deg, #c71585, #ff1493);
+  box-shadow: 0 6px 12px rgba(255, 20, 147, 0.3);
+  transform: translateY(-2px);
+}
+
+.journal {
+  margin-top: 25px;
+  padding: 18px;
+  background: #ffe4e1;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+}
+
+.journal:hover {
+  transform: translateY(-2px);
+}
+
+.journal h2 {
+  color: #d63384;
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+}
+
+.journal p {
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Responsive Styles for Mobile */
+@media (max-width: 768px) {
+  .container {
+    width: 90%; /* Smaller for mobile */
+    max-width: 350px;
+    padding: 20px;
+    margin-right: auto;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .textarea {
+    width: 90%;
+    height: 120px;
+    font-size: 1rem;
+  }
+
+  .save-button, .send-button {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .journal h2 {
+    font-size: 1.4rem;
+  }
+}
