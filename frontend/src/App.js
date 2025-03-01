@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./LoveNotesApp.css";
 
-const BACKUP_SERVER_URL = process.env.REACT_APP_BACKUP_SERVER_URL;
+const BACKUP_SERVER_URL = window.configs?.BACKUP_SERVER_URL;
+console.log("Backup Server URL:", BACKUP_SERVER_URL);
 
 export default function LoveNotesApp() {
   const [text, setText] = useState("");
