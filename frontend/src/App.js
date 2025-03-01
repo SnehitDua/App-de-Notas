@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./LoveNotesApp.css";
 
-const BACKUP_SERVER_URL = window.configs?.BACKUP_SERVER_URL;
+const BACKUP_SERVER_URL = "https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-prod.e1-us-east-azure.choreoapis.dev/love-notes-backend/love-notes-backend/v1.0/backup"; // Replace with Choreo URL
 console.log("Backup Server URL:", BACKUP_SERVER_URL);
 
 export default function LoveNotesApp() {
